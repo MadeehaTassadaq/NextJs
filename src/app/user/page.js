@@ -1,26 +1,34 @@
-async function userList(){
-    let  data=await fetch ("https://dummyjson.com/users")
-    data=await data.json()
-    return data.users
+import Link from "next/link"
+
+async function userList() {
+    try {
+        const response = await fetch("http://localhost:3000/api/users", { cache: 'no-store' })
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.error("Error fetching users:", error)
+        return []
+    }
 }
 
-export default async function Page(){
-    let users=await userList()
-    console.log(users)
+export default async function Page() {
+    const users = await userList()
+    console.log("Users data:", users)
     
-    return(
+    return (
         <div>
-            <h1>
-                User Name List
-            </h1>
-            
-                {users.map((item)=>
+            <h1>User Name List</h1>
+            {users.length === 0 ? (
+                <p>No users found</p>
+            ) : (
+                users.map((item) => (
                     <div key={item.id}>
-                    <h2>firstName:{item.firstName}</h2><h2>lastname:{item.lastName}</h2>
-                    
-                </div>
+                        <Link href={`/user/${item.id}`}>
+                            Name: {item.name} Id: {item.id}
+                        </Link>
+                    </div>
+                ))
             )}
-           
         </div>
     )
 }
