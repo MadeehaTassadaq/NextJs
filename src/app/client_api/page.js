@@ -21,8 +21,8 @@ export default function Product() {
       <h1>Post list</h1>
     <Link href="/">Go to Home page</Link>
     <ul>
-      {data.map((item) => (
-        <h4>post:{item.title} </h4> 
+     {product.map((item) => (
+        <h4 key={item.id}>post:{item.title} </h4> 
       ))}
     </ul>
     </div>

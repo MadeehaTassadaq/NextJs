@@ -3,6 +3,7 @@ import { useState } from "react";
 import styles from "./page.module.css";
 
 export default function Home() {
+  console.log(process.env)
  const [name,setname]=useState("madeeha")
   const apple = () => {
   setname("Tassadaq") 
